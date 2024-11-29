@@ -1,0 +1,22 @@
+{
+  "appId": "com.yemelia.electron-system",
+  "files": ["dist-electron", "dist-react", "package.json"],
+  "extraMetadata": {
+    "main": "dist-electron/main.js"
+  },
+  "extraResources": [
+    "dist-electron/preload.cjs",
+    "src/assets/**"
+  ],
+  "icon": "./desktopIcon.png",
+  "mac": {
+    "target": "dmg"
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  },
+  "win": {
+    "target": ["portable", "msi"]
+  }
+}
