@@ -41,5 +41,6 @@ electron.contextBridge.exposeInMainWorld('electron', {
   },
   getStaticData: () => ipcInvoke('getStaticData'),
   getAppDataInfo: () => ipcInvoke('getAppDataInfo'),
-  sendFrameAction: (payload) => ipcSend('sendFrameAction', payload), 
+  sendFrameAction: (payload) => ipcSend('sendFrameAction', payload),
+  openFolderByPath: (payload) => ipcSend('openFolderByPath', payload),
 } satisfies Window['electron']);

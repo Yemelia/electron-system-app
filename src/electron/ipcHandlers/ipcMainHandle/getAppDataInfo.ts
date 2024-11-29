@@ -7,7 +7,7 @@ const appDataRoamingPath = process.env.APPDATA ||
       ? path.join(process.env.HOME!, 'Library/Application Support')
       : path.join(process.env.HOME!, '.config'));
 
-// const appDataLocal = process.env.LOCALAPPDATA!;
+const appDataLocal = process.env.LOCALAPPDATA!;
 
 function getFolderSize(folderPath: string): Promise<number> {
   return new Promise((resolve, reject) => {
@@ -27,8 +27,16 @@ function getFolderSize(folderPath: string): Promise<number> {
 
 export async function getAppDataFoldersAndSizes(): Promise<FoldersDetails> {
   const foldersDetails: FoldersDetails = {
-    roaming: [],
-    local: [],
+    roaming: {
+      totalSize: 0,
+      folders: [],
+      path: appDataRoamingPath,
+    },
+    local: {
+      totalSize: 0,
+      folders: [],
+      path: appDataLocal,
+    },
   }
 
   try {
@@ -36,12 +44,16 @@ export async function getAppDataFoldersAndSizes(): Promise<FoldersDetails> {
 
     const folders = fs.readdirSync(appDataRoamingPath, { withFileTypes: true })
       .filter(file => file.isDirectory())
-      // Handle folders with no permissions
+      // TODO: Handle folders with no permissions
       .filter((folder) => folder.name !== 'Microsoft');
+
+    let totalSize = 0;
 
     for (const folder of folders) {
       const folderPath = path.join(appDataRoamingPath, folder.name);
       const size = await getFolderSize(folderPath);
+
+      totalSize += size;
 
       folderDetails.push({
         name: folder.name,
@@ -50,7 +62,8 @@ export async function getAppDataFoldersAndSizes(): Promise<FoldersDetails> {
       });
     }
 
-    foldersDetails.roaming = folderDetails;
+    foldersDetails.roaming.folders = folderDetails;
+    foldersDetails.roaming.totalSize = totalSize;
   } catch (err) {
     console.error('Error AppData:', err);
   }

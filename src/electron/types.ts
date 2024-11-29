@@ -4,4 +4,5 @@ export type EventPayloadMapping = {
   getAppDataInfo: Promise<FoldersDetails>;
   changeView: View;
   sendFrameAction: FrameWidowAction;
+  openFolderByPath: OpenFolderActionPayload;
 };

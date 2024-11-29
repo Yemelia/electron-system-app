@@ -9,7 +9,11 @@ export const AppDataUsage = () => {
   return (
     <div>
       <div>App Data info</div>
-      <ParentFolder folders={appDataFolderInfo?.roaming} />
+      {appDataFolderInfo ? (
+        <ParentFolder parentFolder={appDataFolderInfo.roaming} />
+      ) : (
+        'Loading ....'
+      )}
     </div>
   );
 };

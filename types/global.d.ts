@@ -1,3 +1,5 @@
+
+// Domain
 type Statistics = {
   cpuUsage: number,
   ramUsage: number,
@@ -17,14 +19,27 @@ interface FolderDetails {
   size: number;
 }
 
+interface ParentFolderDetails {
+  totalSize: number;
+  folders: FolderDetails[],
+  path: string;
+}
+
 interface FoldersDetails {
-  roaming: FolderDetails[];
-  local: FolderDetails[];
+  roaming: ParentFolderDetails,
+  local: ParentFolderDetails,
 }
 
 type View = 'CPU' | 'RAM' | 'STORAGE';
 
+// Actions
+
 type FrameWidowAction = 'CLOSE' | 'MAXIMIZE' | 'MINIMIZE';
+
+interface OpenFolderActionPayload {
+  path: string;
+  highlight?: boolean;
+};
 
 type UnsubscribeFunction = () => void;
 
@@ -41,5 +56,6 @@ interface Window {
         view: View
       ) => void) => UnsubscribeFunction;
     sendFrameAction: (payload: FrameWidowAction) => void;
+    openFolderByPath: (payload: OpenFolderActionPayload) => void;
   }
 }
