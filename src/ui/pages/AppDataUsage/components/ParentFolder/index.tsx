@@ -4,6 +4,7 @@ import { FolderInfo } from '../FolderInfo';
 import { MouseEvent, useCallback, useState } from 'react';
 import { baitToGb } from '../../utils';
 import { CTooltip } from '@coreui/react';
+import { ParentFolderDetails } from '../../../../../../types/domain';
 
 interface Props {
   parentFolder: ParentFolderDetails;
@@ -39,10 +40,7 @@ export const ParentFolder = ({ parentFolder }: Props) => {
           <div className="me-3">{`${baitToGb(parentFolder.totalSize)} GB`}</div>
           <div>
             <CTooltip content="Open in File Explorer">
-              <CIcon
-                icon={cilScreenDesktop}
-                onClick={handleOpenInFileExplorer}
-              />
+              <CIcon icon={cilScreenDesktop} onClick={handleOpenInFileExplorer} />
             </CTooltip>
           </div>
         </div>

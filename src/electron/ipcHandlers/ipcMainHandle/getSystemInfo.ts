@@ -3,7 +3,7 @@ import * as osUtils from 'os-utils';
 import * as si from 'systeminformation';
 import * as fs from 'fs';
 
-export const getStaticData = async () => {
+export const getSystemInfo = async () => {
   const totalStorage = getStorageData().total;
   const cpuModel = os.cpus()[0].model;
   const totalMemoryGB = Math.floor(osUtils.totalmem() / 1024);

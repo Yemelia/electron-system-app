@@ -1,7 +1,6 @@
 import { ipcMain } from 'electron';
 import { validateEventFrame } from '../../utils';
 import { sendFrameAction } from './sendFrameAction';
-import { EventPayloadMapping } from '../../types';
 import { openFolderByPath } from './openInFileExplorer';
 
 const ipcMainOn = <Key extends keyof EventPayloadMapping>(

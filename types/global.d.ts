@@ -1,4 +1,3 @@
-
 // Domain
 type Statistics = {
   cpuUsage: number,
@@ -6,7 +5,7 @@ type Statistics = {
   storageUsage: number;
 };
 
-type StaticData = {
+type SystemInfo = {
   totalStorage: number;
   cpuModel: string;
   gpuModel: string;
@@ -34,6 +33,14 @@ type View = 'CPU' | 'RAM' | 'STORAGE';
 
 // Actions
 
+interface EventPayloadMapping {
+  getSystemInfo: Promise<SystemInfo>;
+  getAppDataInfo: Promise<FoldersDetails>;
+  changeView: View;
+  sendFrameAction: FrameWidowAction;
+  openFolderByPath: OpenFolderActionPayload;
+};
+
 type FrameWidowAction = 'CLOSE' | 'MAXIMIZE' | 'MINIMIZE';
 
 interface OpenFolderActionPayload {
@@ -45,11 +52,7 @@ type UnsubscribeFunction = () => void;
 
 interface Window {
   electron: {
-    subscribeStatistics:
-      (callback: (
-        statistics: Statistics
-      ) => void) => UnsubscribeFunction;
-    getStaticData: () => Promise<Promise<StaticData>>,
+    getSystemInfo: () => Promise<Promise<SystemInfo>>,
     getAppDataInfo: () => Promise<Promise<FoldersDetails>>,
     subscribeChangeView:
       (callback: (

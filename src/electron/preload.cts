@@ -1,5 +1,3 @@
-import { EventPayloadMapping } from './types';
-
 const electron = require('electron');
 
 const ipcInvoke =
@@ -29,17 +27,12 @@ const ipcSend =
   }
 
 electron.contextBridge.exposeInMainWorld('electron', {
-  subscribeStatistics: (callback) => {
-    return ipcOn('statistics', (stats) => {
-      callback(stats);
-    });
-  },
   subscribeChangeView: (callback) => {
     return ipcOn('changeView', (view) => {
       callback(view);
     });
   },
-  getStaticData: () => ipcInvoke('getStaticData'),
+  getSystemInfo: () => ipcInvoke('getSystemInfo'),
   getAppDataInfo: () => ipcInvoke('getAppDataInfo'),
   sendFrameAction: (payload) => ipcSend('sendFrameAction', payload),
   openFolderByPath: (payload) => ipcSend('openFolderByPath', payload),

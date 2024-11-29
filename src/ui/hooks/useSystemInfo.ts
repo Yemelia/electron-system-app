@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export const useSystemInfo = () => {
-  const [systemInfo, setSystemInfo] = useState<StaticData>();
+  const [systemInfo, setSystemInfo] = useState<SystemInfo>();
 
   useEffect(() => {
-    window.electron.getStaticData()
+    window.electron.getSystemInfo()
       .then((dataPromise) => dataPromise)
       .then((data) => setSystemInfo(data));
   }, []);

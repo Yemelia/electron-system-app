@@ -13,6 +13,8 @@ export const createMainWindow = () => {
     frame: true,
   });
 
+  window.webContents.session.clearCache();
+
   if (isDev()) {
     window.loadURL('http://localhost:5123/');
   } else {

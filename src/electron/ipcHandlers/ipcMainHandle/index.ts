@@ -1,7 +1,6 @@
 import { ipcMain } from 'electron';
-import { EventPayloadMapping } from '../../types';
 import { validateEventFrame } from '../../utils';
-import { getStaticData } from './getStaticData';
+import { getSystemInfo } from './getSystemInfo';
 import { getAppDataFoldersAndSizes } from './getAppDataInfo';
 
 const ipcMainHandle = <Key extends keyof EventPayloadMapping>(
@@ -16,6 +15,6 @@ const ipcMainHandle = <Key extends keyof EventPayloadMapping>(
 };
 
 export const ipcMainHandleHandlers = () => {
-  ipcMainHandle<'getStaticData'>('getStaticData', getStaticData);
+  ipcMainHandle<'getSystemInfo'>('getSystemInfo', getSystemInfo);
   ipcMainHandle<'getAppDataInfo'>('getAppDataInfo', getAppDataFoldersAndSizes);
 }
